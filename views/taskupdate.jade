@@ -5,14 +5,15 @@ block content
   #page-content.container
     .row
       .col-md-9.col-sm-12.content-holder
-        // CONTENT
         #menu-container
           a.site-brand
             .box-content
               h3.widget-title A D D - T A S K
+
             .col-md-15.col-sm-15
               .box-content
                 form(method= 'POST', action= '/tasks/' + todoInfo._id, onsubmit= 'return validateForm()')
+
                   .row
                     br
                     br
@@ -23,11 +24,11 @@ block content
                       p
                         | T A S K - D E S C R I P T I O N :
                         br
-                        textarea#task-description.task(name='taskDetails', type='text', rows='3', cols='10', placeholder='e.g., Buy a dress', value= 'todoInfo.taskDetails')
+                        textarea#task-description.task(name='taskDetails', type='text', rows='3', cols='10', placeholder='e.g., Buy a dress', value= todoInfo.taskDetails)
                       p
                         | T A S K - D A T E :
                         br
-                        input#task-name.taskdate(name='taskDate', type='date', placeholder='Month/Day/Year', value='todoInfo.taskDate')
+                        input#task-name.taskdate(name='taskDate', type='date', placeholder='Month/Day/Year', value= todoInfo.taskDate)
                       p
                         | S T A T U S :
                         br

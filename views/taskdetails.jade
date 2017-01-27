@@ -48,6 +48,8 @@ block content
                         | #{todoInfo.taskupdated}
                       br
                       a.red-text(href= '/tasks/' + todoInfo._id + '/edit')
-                        button.button(type='button') U P D A T E
+                        button.button3(type='button') U P D A T E
+                      a.red-text(href= '/tasks/')
+                        button.button3(type='button') B A C K
                       a.red-text(href= '/tasks/' + todoInfo._id + '/delete', onclick= 'return confirmDelete()')
-                        button.button(type='button') D E L E T E
+                        button.button3(type='button') D E L E T E

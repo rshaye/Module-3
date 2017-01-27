@@ -62,7 +62,7 @@ MongoClient.connect(mdbUrl, function(err, database) {
 		var data = {
 			status: addStatus
 		}
-		res.render('add_task', data);
+		res.render('addtask', data);
 		addStatus = "";
 	});
 
@@ -107,7 +107,7 @@ MongoClient.connect(mdbUrl, function(err, database) {
 		var todoId = req.params.todoId;
 		var taskCollection = db.collection('tasks');
 		taskCollection.findOne({_id: new ObjectId(todoId)}, function(err, info) {
-			res.render('update_entry', {
+			res.render('taskupdate', {
 				todoInfo: info
 			});
 		}); 
