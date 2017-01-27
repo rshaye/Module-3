@@ -19,13 +19,15 @@ block content
                       br
                       table
                         tr
-                          th(style='width:10%') S T A T U S
-                          th(style='width:10%') T A S K - N A M E
-                          th(style='width:10%') T A S K - D A T E
+                          th(style='width:30%') T A S K - N A M E 
+                          th(style='width:30%') S T A T U S
+                          th(style='width:25%')
+
                           each task, i in tasks
                               tr
+                                td= task.taskName
                                 td= task.status
                                 td
-                                  a.red-text(href= "/tasks/" + task._id)= task.taskName
-                                td= task.taskDate
+                                  a.red-text(href= "/tasks/" + task._id)
+                                    button.button(type='button') S E E - T A S K
                         

@@ -47,9 +47,7 @@ block content
                         br
                         | #{todoInfo.taskupdated}
                       br
-                      a.waves-effect.waves-white.btn-flat.white-text.blue.truncate(href= '/tasks/' + todoInfo._id + '/edit')
-                        i.fa.fa-pencil.left.small
-                        | Update Info
-                      a.waves-effect.waves-red.btn-flat.white-text.red(href= '/tasks/' + todoInfo._id + '/delete', onclick= 'return confirmDelete()')
-                        i.fa.fa-trash.left.small
-                        | Delete
+                      a.red-text(href= '/tasks/' + todoInfo._id + '/edit')
+                        button.button(type='button') U P D A T E
+                      a.red-text(href= '/tasks/' + todoInfo._id + '/delete', onclick= 'return confirmDelete()')
+                        button.button(type='button') D E L E T E

@@ -86,7 +86,7 @@ MongoClient.connect(mdbUrl, function(err, database) {
 		  	else {
 		  		console.log('Saving Data Successful!');
 		  		addStatus = 'Saving Data Success';
-		  		res.redirect('/tasks/new');
+		  		res.redirect('/tasks');
 		  	}
 		  });
 	});
