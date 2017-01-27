@@ -1,0 +1,55 @@
+extends layout
+
+block content
+
+  #page-content.container
+    .row
+      .col-md-9.col-sm-12.content-holder
+        // CONTENT
+        #menu-container
+          a.site-brand
+            .box-content
+              h3.widget-title4  T A S K
+            .col-md-15.col-sm-15
+              .box-content
+                form.task-form(action='/tasks', method='get')
+                  .row
+                    br
+                    br
+                    fieldset.col-md-offset-3.col-md-9
+                      p
+                        | T A S K - N A M E : 
+                        br
+                        | #{todoInfo.taskName}  
+                      br
+                      p
+                        | T A S K - D E S C R I P T I O N : 
+                        br
+                        | #{todoInfo.taskDetails}
+                      br
+                      p
+                        | T A S K - D A T E :
+                        br
+                        | #{todoInfo.taskDate}
+                      br
+                      p
+                        | S T A T U S :
+                        br
+                        | #{todoInfo.status}
+                      br
+                      p
+                        | D A T E - C R E A T E D :
+                        br
+                        | #{todoInfo.taskcreated}
+                      br
+                      p
+                        | D A T E - U P D A T E D :
+                        br
+                        | #{todoInfo.taskupdated}
+                      br
+                      a.waves-effect.waves-white.btn-flat.white-text.blue.truncate(href= '/tasks/' + todoInfo._id + '/edit')
+                        i.fa.fa-pencil.left.small
+                        | Update Info
+                      a.waves-effect.waves-red.btn-flat.white-text.red(href= '/tasks/' + todoInfo._id + '/delete', onclick= 'return confirmDelete()')
+                        i.fa.fa-trash.left.small
+                        | Delete

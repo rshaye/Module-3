@@ -1,0 +1,31 @@
+extends layout
+
+block content
+  #page-content.container
+    .row
+      .col-md-9.col-sm-12.content-holder
+        // CONTENT
+        #menu-container
+          a.site-brand
+            .box-content
+              h3.widget-title3 T A S K S - L I S T
+            .col-md-15.col-sm-15
+              .box-content2
+                form.task-form(action='/tasks', method='get')
+                  .row
+                    br
+                    br
+                    fieldset.col-md-offset-3.col-md-10
+                      br
+                      table
+                        tr
+                          th(style='width:10%') S T A T U S
+                          th(style='width:10%') T A S K - N A M E
+                          th(style='width:10%') T A S K - D A T E
+                          each task, i in tasks
+                              tr
+                                td= task.status
+                                td
+                                  a.red-text(href= "/tasks/" + task._id)= task.taskName
+                                td= task.taskDate
+                        

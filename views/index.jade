@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    #page-content.container
+      .row
+        .col-md-9.col-sm-12.content-holder
+          // CONTENT
+          #menu-container
+            .logo-holder.logo-top-margin
+              a.site-brand
+                img(src='../images/TJLogo.png', alt='')
+              br
+              a(href='/tasks/new')
+                button.button(type='button') A D D - I T E M - L I S T
+              br
+              a(href='/tasks')
+                button.button2(type='button') C H E C K - O U T - T A S K
+              br
