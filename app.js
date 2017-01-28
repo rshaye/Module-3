@@ -107,7 +107,7 @@ MongoClient.connect(mdbUrl, function(err, database) {
 		var todoId = req.params.todoId;
 		var taskCollection = db.collection('tasks');
 		taskCollection.findOne({_id: new ObjectId(todoId)}, function(err, info) {
-			res.render('taskupdate', {
+			res.render('task_update', {
 				todoInfo: info
 			});
 		}); 
