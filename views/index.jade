@@ -1,0 +1,18 @@
+extends layout
+
+block content
+    #page-content.container
+      .row
+        .col-md-9.col-sm-12.content-holder
+          // CONTENT
+          #menu-container
+            .logo-holder.logo-top-margin
+              a.site-brand
+                img(src='../images/TJLogo.png', alt='')
+              br
+              a(href='/auth/login')
+                button.button(type='button') L O G - I N - H E R E 
+              br
+              a(href='/auth/register')
+                button.button2(type='button') S I G N - U P - H E R E
+              br
