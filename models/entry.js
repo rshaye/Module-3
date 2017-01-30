@@ -20,8 +20,8 @@ var entrySchema = new Schema({
     	required: true
     },
  
-    created: String,
-    updated: String,
+    taskcreated: String,
+    taskupdated: String,
 },
 {
     collection: 'tasks'
