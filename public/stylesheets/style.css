@@ -440,7 +440,7 @@ button {
   border: 0;
   -webkit-border-radius: 10px;
   border-radius: 10px;
-  margin-left: 10.5%;
+  margin-left: 13.7%;
   margin-bottom: 20%;
   border: 1px solid #fff;
 }
@@ -551,7 +551,7 @@ button {
 
 .logo-top-margin {
   position: relative;
-  margin-left: 45%;
+  margin-left: 50%;
   margin-top: 5%;
 }
 @media screen and (max-width: 992px) {
@@ -608,6 +608,7 @@ button {
 @media screen and (max-width: 992px) {
   .logo-holder {
     text-align: center;
+    margin-left: 10%;
   }
 }
 

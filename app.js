@@ -4,174 +4,78 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var date = new Date();
+
+var mongoose = require('mongoose');
+var session = require('express-session');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var mongo = require('mongodb');
+
+var mdbUrl = "mongodb://admin:admin@ds135689.mlab.com:35689/db2";
+var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
+                replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
+mongoose.connect(mdbUrl, options, function(err, res) {
+    if (err) {
+        console.log('Error connecting to ' + mdbUrl);
+    } else {
+        console.log('MongoDB connected!');
+    }
+});
+var db = mongoose.connection;
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-
-var MongoClient = require('mongodb').MongoClient;
-var ObjectId = require('mongodb').ObjectId;
+var auth = require('./routes/auth');
+var tasks = require('./routes/tasks');
 
 var app = express();
-var db;
 
-var addStatus;
-var getDate = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'jade');
 
-var mdbUrl = "mongodb://admin:admin@ds161018.mlab.com:61018/coen3463t-t1";
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
-MongoClient.connect(mdbUrl, function(err, database) {
-    if (err) {
-        console.log(err)
-        return;
-    }
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: false
+}));
 
-    console.log("Connected to DB!");
+app.use(passport.initialize());
+app.use(passport.session());
 
-    // set database
-    db = database;
+var User = require('./models/users');
 
-	// view engine setup
-	app.set('views', path.join(__dirname, 'views'));
-	app.set('view engine', 'jade');
+app.use('/', index);
+app.use('/auth', auth);
+app.use('/tasks', tasks);
+app.get('/test', function(req, res){
+	res.render('test');
+});
 
-	// uncomment after placing your favicon in /public
-	//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-	app.use(logger('dev'));
-	app.use(bodyParser.json());
-	app.use(bodyParser.urlencoded({ extended: false }));
-	app.use(cookieParser());
-	app.use(express.static(path.join(__dirname, 'public')));
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  	var err = new Error('Not Found');
+  	err.status = 404;
+  	next(err);
+});
 
-	app.use('/', index);
-	
-	//List all the entries
-	app.get('/tasks', function(req, res) {
-		var taskCollection = db.collection('tasks');
-		taskCollection.find().toArray(function(err, tasks) {
-			console.log('Tasks Loaded!');
-			res.render('tasklist', {
-				tasks: tasks
-			});
-		})
-	});
+// error handler
+app.use(function(err, req, res, next) {
+  	// set locals, only providing error in development
+  	res.locals.message = err.message;
+  	res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-	//Adding New Entry
-	app.get('/tasks/new', function(req, res) {
-		console.log();
-		var data = {
-			status: addStatus
-		}
-		res.render('addtask', data);
-		addStatus = "";
-	});
-
-	//POST Method when submitting new Entry
-	app.post('/tasks/new', function(req, res) {
-		var dataToSave = {
-			taskName: req.body.taskName,
-			taskDetails: req.body.taskDetails,
-			taskDate: req.body.taskDate,
-			status: req.body.status,
-			taskcreated: getDate,
-			taskupdated: getDate
-		};
-
-		db.collection('tasks')
-		  .save(dataToSave, function(err, tasks) {
-		  	if(err) {
-		  		console.log('Saving Data Failed!');
-		  		addStatus = 'Saving Data Failed!';
-		  	}
-		  	else {
-		  		console.log('Saving Data Successful!');
-		  		addStatus = 'Saving Data Success';
-		  		res.redirect('/tasks');
-		  	}
-		  });
-	});
-
-	//Page of each Entry
-	app.get('/tasks/:todoId', function(req, res) {
-		var todoId = req.params.todoId;
-		var taskCollection = db.collection('tasks');
-		taskCollection.findOne({_id: new ObjectId(todoId)}, function(err, info) {
-			res.render('taskdetails', {
-				todoInfo: info
-			});
-		}); 
-	});
-
-	//Edit Page
-	app.get('/tasks/:todoId/edit', function(req, res) {
-		var todoId = req.params.todoId;
-		var taskCollection = db.collection('tasks');
-		taskCollection.findOne({_id: new ObjectId(todoId)}, function(err, info) {
-			res.render('task_update', {
-				todoInfo: info
-			});
-		}); 
-	})
-
-	//POST Method when updating an entry
-	app.post('/tasks/:todoId', function(req, res){
-
-		var todoId = req.params.todoId;
-
-		var newData = {
-			taskName: req.body.taskName,
-			taskDetails: req.body.taskDetails,
-			taskDate: req.body.taskDate,
-			status: req.body.status,
-			taskupdated: getDate
-		}
-
-		
-		var taskCollection = db.collection('tasks');
-		taskCollection.updateOne({_id: new ObjectId(todoId)}, {$set: newData}, function(err, result) {
-			if(err) {
-				console.log("Item not updated!");
-			}
-			else {
-				console.log("Item Updated!")
-				res.redirect('/tasks/' + todoId)
-			}
-		}); 
-	});
-
-	//Delete Entry
-	app.get('/tasks/:todoId/delete', function(req, res){
-		var todoId = req.params.todoId;
-		
-		var taskCollection = db.collection('tasks');
-		taskCollection.deleteOne({_id: new ObjectId(todoId)}, function(err, result) {
-			if(err) {
-				console.log("Item not deleted!");
-			}
-			else {
-				console.log("Item deleted!")
-				res.redirect('/tasks')
-			}
-		}); 
-	});
-
-	// catch 404 and forward to error handler
-	app.use(function(req, res, next) {
-  		var err = new Error('Not Found');
-  		err.status = 404;
-  		next(err);
-	});
-
-	// error handler
-	app.use(function(err, req, res, next) {
-  		// set locals, only providing error in development
-  		res.locals.message = err.message;
-  		res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  		// render the error page
-  		res.status(err.status || 500);
-  		res.render('error');
-	});
+  	// render the error page
+  	res.status(err.status || 500);
+  	res.render('error');
 });
 
 module.exports = app;
