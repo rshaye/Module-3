@@ -5,7 +5,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
 
   var data = {
-  	title: 'ExpressVids - The top NodeJS and Express Tutorial',
+  	title: 'Team Juan',
   	user: req.user
   }
 
