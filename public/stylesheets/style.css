@@ -551,7 +551,7 @@ button {
 
 .logo-top-margin {
   position: relative;
-  margin-left: 45%;
+  margin-left: 50%;
   margin-top: 5%;
 }
 @media screen and (max-width: 992px) {
