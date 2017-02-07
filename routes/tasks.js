@@ -22,7 +22,8 @@ router.use(function(req, res, next) {
   router.get('/', function(req, res){
   Entry.find(function(err, tasks){
     res.render('tasklist', {
-        tasks: tasks
+        tasks: tasks,
+        user: req.user
       });
   })
 });
@@ -31,7 +32,8 @@ router.use(function(req, res, next) {
 router.get('/new', function(req, res) {
   console.log();
   var data = {
-    status: addStatus
+    status: addStatus,
+    user: req.user
   }
   res.render('addtask', data);
   addStatus = "";
@@ -67,7 +69,8 @@ router.get('/:todoId', function(req, res) {
   var todoId = req.params.todoId;
   Entry.findById(todoId, function(err, info){
     res.render('taskdetails', {
-      todoInfo: info
+      todoInfo: info,
+      user: req.user
     });
   }); 
 });
@@ -78,7 +81,8 @@ router.get('/:todoId/edit', function(req, res) {
 
   Entry.findById(todoId, function(err, info) {
     res.render('task_update', {
-        todoInfo: info
+        todoInfo: info,
+        user: req.user
     })
   })
 });
