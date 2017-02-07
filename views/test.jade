@@ -1,19 +1,18 @@
 extends layout
 
 block content
-
   br
   br
   if(!user)
     .container
       .row.black-text
         .col.s12.m6.l6.center.flow-text
-          a.black-text(href= '/tutorials')
+          a.black-text(href= '/tasks')
             .card.accent-2
               b
                 | Log-in
         .col.s12.m6.l6.center
-          a.black-text(href= 'tutorials/new')
+          a.black-text(href= 'tasks/new')
             .card.flow-text
               b
                 | Sign-up

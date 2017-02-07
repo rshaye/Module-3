@@ -7,7 +7,7 @@ var Entry = require('../models/entry');
 var date = new Date();
 var getDate = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
 
-var mdbUrl = "mongodb://admin:admin@ds135689.mlab.com:35689/db2"
+var mdbUrl = "mongodb://admin:admin@ds161018.mlab.com:61018/coen3463t-t1";
 
 var addStatus;
 
@@ -126,13 +126,6 @@ router.use(function(req, res, next) {
         res.redirect('/tasks')
       }
     }); 
-  });
-
-  // catch 404 and forward to error handler
-  router.use(function(req, res, next) {
-      var err = new Error('Not Found');
-      err.status = 404;
-      next(err);
   });
 
   // error handler

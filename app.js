@@ -11,14 +11,14 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
 
-var mdbUrl = "mongodb://admin:admin@ds135689.mlab.com:35689/db2";
+var mdbUrl = "mongodb://admin:admin@ds161018.mlab.com:61018/coen3463t-t1";
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
                 replset: { socketOptions: { keepAlive: 300000, connectTimeoutMS : 30000 } } };
 mongoose.connect(mdbUrl, options, function(err, res) {
     if (err) {
         console.log('Error connecting to ' + mdbUrl);
     } else {
-        console.log('MongoDB connected!');
+        console.log('TO-DO-LIST Database Connected!');
     }
 });
 var db = mongoose.connection;
