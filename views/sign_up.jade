@@ -1,44 +1,53 @@
 extends layout
 
 block content
-  br
-  .inputfield
-    form(method= 'POST', action= '/auth/register', onsubmit= 'return fieldValidate()')
-      .container.rown
-        h3.blue-text.center Create Account
 
-        if (status)
-          h6.white-text.red(style= "padding: 1%")= status
+  #page-content.container
+    .row
+      .col-md-9.col-sm-12.content-holder
+        // CONTENT
+        #menu-container
+          a.site-brand
+            .box-content
+              h3.widget-title S I G N - U P - H E R E
+            .col-md-15.col-sm-15
+              .box-content
 
-        .row
-          .col.s12.m12.l12
-            .input-field.col.white-text
-              input#username.validate(type='text', name= 'username', value= username)
-              label(for='first_name') Username
-          .col.s12.m12.l6
-            .input-field.col.white-text
-              input#first_name.validate(type='text', name= 'firstName', value= first_name)
-              label(for='first_name') First Name
-          .col.s12.m12.l6
-            .input-field.col.white-text
-              input#last_name.validate(type='text', name= 'lastName', value= last_name)
-              label(for='last_name') Last Name
-          .col.s12.m12.l12
-            .input-field.col.white-text
-              input#email.validate(type='email', name= 'email', value= email)
-              label(for='email', data-error='wrong', data-success='right') Email
-          .col.s12.m12.l6
-            .input-field.col.white-text
-              input#password.validate(type='password', name= 'password', value= password)
-              label(for='password') Password
-        .row.center
-          button.btn.waves-effect.waves-light(type='submit', name='action')
-            | Register
-            i.fa.fa-send.small.left
-        .row
-          p.white-text.center
-              | Already have account? Click 
-              b
-                a.blue-text.link(href= '/auth/login') Login
-
-
+                form.task-form(method= 'POST', action= '/auth/register', onsubmit= 'return fieldValidate()')
+                  .row
+                    br
+                    br
+                    br
+                    fieldset.col-md-offset-3.col-md-9
+                      p
+                      if (status)
+                      p
+                      p
+                        | U S E R N A M E :
+                        input#username.task(type='text', name= 'username', value= username)
+                        label(for='first_name')
+                      p
+                        | F I R S T - N A M E :
+                        input#first_name.task(type='text', name= 'firstName', value= first_name)
+                        label(for='first_name')
+                      p
+                        | L A S T - N A M E :
+                        input#last_name.task(type='text', name= 'lastName', value= last_name)
+                        label(for='last_name')
+                      p
+                        | E M A I L :
+                        input#email.task(type='email', name= 'email', value= email)
+                        label(for='email', data-error='wrong', data-success='right')
+                      p
+                        | P A S S W O R D :
+                        input#password.task(type='password', name= 'password', value= password)
+                        label(for='password')
+                      p
+                      center  
+                      input#submit.button4(name='action', type='submit', value='R E G I S T E R')
+              .box-content
+                p
+                center
+                  | A L R E A D Y - H A V E - A N - A C C O U N T? 
+                  p 
+                    a.red-text.link(href= '/auth/login') L O G - I N - H E R E

@@ -3,33 +3,27 @@ var mongoose = require('mongoose'),
     passportLocalMongoose = require('passport-local-mongoose');
 
 var entrySchema = new Schema({
-    title: {
+    taskName: {
     	type: String,
     	required: true
     },
-    uploadersName: {
+    taskDetails: {
     	type: String,
     	required: true
     },
-    uploadersYoutubeLink: {
+    taskDate: {
     	type: String,
     	required: true
     },
-    youtubeLink: {
+    status: {
     	type: String,
     	required: true
     },
-    description: String,
-    publishDate: String,
-    category: String,
-    views: String,
-    likes: String,
-    created: String,
-    updated: String,
-    embed: String,
+    taskcreated: String,
+    taskupdated: String,
 },
 {
-    collection: 'tutorials'
+    collection: 'tasks'
 });
 
 module.exports = mongoose.model('Entry', entrySchema);

@@ -96,7 +96,7 @@ passport.use(new LocalStrategy(
     User.getUserByUsername(username, function(err, user){
       if(err) throw err;
       if(!user) {
-        console.log('No User');
+        console.log('Username does not exists');
         loginStatus= "Incorrect Username or Password";
         return done(null, false, {message: 'Unknown User'});
       }

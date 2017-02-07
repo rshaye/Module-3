@@ -3,46 +3,47 @@ extends layout
 block content
 
   #page-content.container
-  .row
-    .col-md-9.col-sm-12.content-holder
-      #menu-container
-        a.site-brand
-          .box-content
-            h3.widget-title A D D - T A S K
-          .col-md-15.col-sm-15
+    .row
+      .col-md-9.col-sm-12.content-holder
+        //CONTENT
+        #menu-container
+          a.site-brand
             .box-content
+              h3.widget-title U P D A T E - T A S K
+            .col-md-15.col-sm-15
+              .box-content
 
-              form(method= 'POST', action= '/tasks/' + todoInfo._id, onsubmit= 'return validateForm()')
-                .row
-                  br
-                  br
-                  fieldset.col-md-offset-3.col-md-9
-                    p
-                      | T A S K - N A M E :
-                      input#task-name.task(name='taskName', type='text', placeholder='e.g., Shopping' , value= todoInfo.taskName)
-                    p
-                      | T A S K - D E S C R I P T I O N :
-                      br
-                      textarea#task-description.task(name='taskDetails', type='text', rows='3', cols='10', placeholder='e.g., Buy a dress', value= todoInfo.taskDetails)
-                    p
-                      | T A S K - D A T E :
-                      br
-                      input#task-name.taskdate(name='taskDate', type='date', placeholder='Month/Day/Year', value= todoInfo.taskDate)
-                    p
-                      | S T A T U S :
-                      br
-                      input(type='radio', name='status', value='Not Urgent - Not Important')
-                      |  Not Urgent - Not Important
-                      br
-                      input(type='radio', name='status', value='Not Urgent - Important')
-                      |  Not Urgent - Important
-                      br
-                      input(type='radio', name='status', value='Urgent - Not Important')
-                      |  Urgent - Not Important
-                      br
-                      input(type='radio', name='status', value='Urgent - Important')
-                      |  Urgent - Important
-                      br
-                      input(type='radio', name='status', value='Done')
-                      |  Done
-                    input#submit.button.default(name='submit', type='submit', value='Update List')
+                form.task-form(method= 'POST', action= '/tasks/' + todoInfo._id, onsubmit= 'return validateTaskForm()')
+                  .row
+                    br
+                    br
+                    fieldset.col-md-offset-3.col-md-9
+                      p
+                        | T A S K - N A M E :
+                        input#taskName.task(name='taskName', type='text', placeholder='e.g., Shopping' , value= todoInfo.taskName)
+                      p
+                        | T A S K - D E S C R I P T I O N :
+                        br
+                        input#taskDetails.task(name='taskDetails', type='text', rows='3', cols='10', placeholder='e.g., Buy a dress', value= todoInfo.taskDetails)
+                      p
+                        | T A S K - D A T E :
+                        br
+                        input#taskDate.taskdate(name='taskDate', type='date', placeholder='Month/Day/Year', value= todoInfo.taskDate)
+                      p
+                        | S T A T U S :
+                        br
+                        input(type='radio', name='status', value='Not Urgent - Not Important')
+                        |  Not Urgent - Not Important
+                        br
+                        input(type='radio', name='status', value='Not Urgent - Important')
+                        |  Not Urgent - Important
+                        br
+                        input(type='radio', name='status', value='Urgent - Not Important')
+                        |  Urgent - Not Important
+                        br
+                        input(type='radio', name='status', value='Urgent - Important')
+                        |  Urgent - Important
+                        br
+                        input(type='radio', name='status', value='Done')
+                        |  Done
+                      input#submit.button.default(name='submit', type='submit', value='Update List')
