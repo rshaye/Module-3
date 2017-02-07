@@ -19,7 +19,6 @@ var entrySchema = new Schema({
     	type: String,
     	required: true
     },
- 
     taskcreated: String,
     taskupdated: String,
 },
