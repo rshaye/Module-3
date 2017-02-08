@@ -5,7 +5,7 @@ function validateTaskForm() {
 	var getTaskName = document.getElementById('taskName').value;
 	var getTaskDetails = document.getElementById('taskDetails').value;
 	var getTaskDate = document.getElementById('taskDate').value;
-	// var getRadioStatus = document.findSelection("status");
+	var getRadioStatus = document.getElementById('status').required = true;
 
 	var errorMessage = "Kindly fill up the following field/s to proceed: \n\n"
 
@@ -16,7 +16,7 @@ function validateTaskForm() {
 		checkCount++;
 	}
 
-	if (getTaskDetails === "") {
+	if (getRadioStatus === "") {
 		errorMessage += "Task Details\n";
 	}
 	else {
@@ -45,12 +45,12 @@ function validateTaskForm() {
 		alert(errorMessage);
 		return false;
 		checkCount = 0;
-		errorMessage = "The following field/s are required and should not be empty: \n\n";
+		errorMessage = "Kindly fill up the following field/s to proceed: \n\n";
 	}
 }
 
 function confirmDelete() {
-	confirm("This item will be permanently deleted, Type 'YES' to delete then click 'OK' or click 'CANCEL' to cancel")
+	confirm("This item will be permanently deleted.")
 }
 
 function fieldValidate() {
@@ -112,9 +112,9 @@ function fieldValidate() {
 
 function checkUserName() {
     var username = document.getElementById("username").value;
-    var pattern = new RegExp(/[~.`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?0123456789]/); //unacceptable chars
+    var pattern = new RegExp(/[~.`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?0123456789]/); //can not be accepted
     if (pattern.test(username)) {
         return false;
     }
-    return true; //good user input
+    return true;
 }
