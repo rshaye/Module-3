@@ -7,7 +7,7 @@ function validateTaskForm() {
 	var getTaskDate = document.getElementById('taskDate').value;
 	var getRadioStatus = document.getElementById('status').required = true;
 
-	var errorMessage = "Kindly fill up the following field/s to proceed: \n\n"
+	var errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n"
 
 	if (getTaskName === "") {
 		errorMessage += "Task Name\n";
@@ -16,7 +16,7 @@ function validateTaskForm() {
 		checkCount++;
 	}
 
-	if (getRadioStatus === "") {
+	if (getTaskDetails === "") {
 		errorMessage += "Task Details\n";
 	}
 	else {
@@ -45,7 +45,7 @@ function validateTaskForm() {
 		alert(errorMessage);
 		return false;
 		checkCount = 0;
-		errorMessage = "Kindly fill up the following field/s to proceed: \n\n";
+		errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n";
 	}
 }
 
@@ -60,10 +60,10 @@ function fieldValidate() {
 
 	var checkCount = 0;
 
-	var errorMessage = "The following field/s are required, should not be empty, or should be corrected: \n\n";
+	var errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n";
 
 	if(username === "") {
-		errorMessage += "Username - should not be empty\n"
+		errorMessage += "Username - this field must not be empty!\n"
 	}
 	else if(username.length < 8) {
 		errorMessage += "Username - Should contain 8 characters or more!\n"
@@ -85,14 +85,14 @@ function fieldValidate() {
 	}
 
 	if(email === "") {
-		errorMessage += "Email - should not be empty!\n"
+		errorMessage += "Email - this field must not be empty!\n"
 	}
 	else {
 		checkCount++
 	}
 
 	if(password === "") {
-		errorMessage += "Password - should not be empty!\n";
+		errorMessage += "Password - this field must not be empty!\n";
 	}
 	else {
 		checkCount++;
@@ -106,7 +106,7 @@ function fieldValidate() {
 		alert(errorMessage);
 		return false;
 		checkCount = 0;
-		errorMessage = "The following field/s are required, should not be empty, or should be corrected: \n\n";
+		errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n";
 	}
 }
 
