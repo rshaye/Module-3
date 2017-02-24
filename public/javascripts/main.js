@@ -57,3 +57,16 @@
 
 
 })(jQuery);
+
+$(function(){
+	$('#search').on('keyup',function(e){
+		if(e.keyCode === 13){
+			var param ={tasklist: $(this).val() };
+				$.get('/tasklist',param,function(entry){
+				$('#request').html(entry);
+
+			});
+
+		};
+	});
+});

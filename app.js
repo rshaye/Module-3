@@ -5,11 +5,18 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var mongoose = require('mongoose');
 var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongo = require('mongodb');
+var flash = require('connect-flash');
+
+const methodOverride = require('method-override');
+const restify = require('express-restify-mongoose');
+const router = express.Router();
+
 
 var mdbUrl = "mongodb://admin:admin@ds161018.mlab.com:61018/coen3463t-t1";
 var options = { server: { socketOptions: { keepAlive: 300000, connectTimeoutMS: 30000 } }, 
@@ -29,6 +36,7 @@ var auth = require('./routes/auth');
 var tasks = require('./routes/tasks');
 
 var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -52,6 +60,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 var User = require('./models/users');
+
+
+
+
+app.use(flash());
+
+app.use(function(req, res, next){
+  res.locals.success_msg = req.flash('success_msg');
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error = req.flash('error');
+  next();
+});
+
+var entry = require('./models/entry');
+
+restify.serve(router, entry);
+app.use(router);
+
 
 app.use('/', index);
 app.use('/auth', auth);

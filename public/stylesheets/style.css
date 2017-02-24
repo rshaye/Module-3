@@ -510,6 +510,34 @@ button {
   margin-top: 5%;
   border: 1px solid #fff;
 }
+button6 {
+  background: #5cb48e;
+  background: rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 10px 20px;
+  outline: 0;
+  border: 0;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin-left: 15%;
+  margin-bottom: 5%;
+  border: 1px solid #fff;
+}
+button7 {
+  background: #5cb48e;
+  background: rgba(255, 255, 255, 0.1);
+  text-transform: uppercase;
+  font-size: 14px;
+  padding: 10px 20px;
+  outline: 0;
+  border: 0;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  margin-left: 10.5%;
+  margin-bottom: 20%;
+  border: 1px solid #fff;
+}
 .task-form .button-holder {
   text-align: center;
 }
@@ -853,5 +881,18 @@ button {
   color: #5cb48e;
 }
 
+#search {
+  text-align: center;
+  width:200px;
+  height: 40px;
+  font-size:1.5em;
+  font-color:black;
+  border-radius:8px;
+  margin-left: 110px;
+  background-color:#86a8a0
+
+  .btn-flat {
+  text-transform: capitalize;
+  color: white;
 
 /* Custom */

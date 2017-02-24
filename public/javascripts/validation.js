@@ -5,9 +5,9 @@ function validateTaskForm() {
 	var getTaskName = document.getElementById('taskName').value;
 	var getTaskDetails = document.getElementById('taskDetails').value;
 	var getTaskDate = document.getElementById('taskDate').value;
-	// var getRadioStatus = document.findSelection("status");
+	var getRadioStatus = document.getElementById('status').required = true;
 
-	var errorMessage = "Kindly fill up the following field/s to proceed: \n\n"
+	var errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n"
 
 	if (getTaskName === "") {
 		errorMessage += "Task Name\n";
@@ -45,12 +45,12 @@ function validateTaskForm() {
 		alert(errorMessage);
 		return false;
 		checkCount = 0;
-		errorMessage = "The following field/s are required and should not be empty: \n\n";
+		errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n";
 	}
 }
 
 function confirmDelete() {
-	confirm("This item will be permanently deleted, Type 'YES' to delete then click 'OK' or click 'CANCEL' to cancel")
+	confirm("This item will be permanently deleted.")
 }
 
 function fieldValidate() {
@@ -60,12 +60,12 @@ function fieldValidate() {
 
 	var checkCount = 0;
 
-	var errorMessage = "The following field/s are required, should not be empty, or should be corrected: \n\n";
+	var errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n";
 
 	if(username === "") {
-		errorMessage += "Username - should not be empty\n"
+		errorMessage += "Username - this field must not be empty!\n"
 	}
-	else if(username.length < 8) {
+	else if(username.length < 6) {
 		errorMessage += "Username - Should contain 8 characters or more!\n"
 	}
 	else {
@@ -85,14 +85,14 @@ function fieldValidate() {
 	}
 
 	if(email === "") {
-		errorMessage += "Email - should not be empty!\n"
+		errorMessage += "Email - this field must not be empty!\n"
 	}
 	else {
 		checkCount++
 	}
 
 	if(password === "") {
-		errorMessage += "Password - should not be empty!\n";
+		errorMessage += "Password - this field must not be empty!\n";
 	}
 	else {
 		checkCount++;
@@ -106,15 +106,96 @@ function fieldValidate() {
 		alert(errorMessage);
 		return false;
 		checkCount = 0;
-		errorMessage = "The following field/s are required, should not be empty, or should be corrected: \n\n";
+		errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n";
 	}
 }
 
 function checkUserName() {
     var username = document.getElementById("username").value;
-    var pattern = new RegExp(/[~.`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?0123456789]/); //unacceptable chars
+    var pattern = new RegExp(/[~.`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?0123456789]/); //can not be accepted
     if (pattern.test(username)) {
         return false;
     }
-    return true; //good user input
+    return true;
+}
+
+function forSearching(){
+	localStorage.setItem("search", document.getElementById('search').value);
+
+}
+
+if(window.location.pathname === '/tasks') {
+
+	console.log(localStorage.getItem("search"));
+
+	if(localStorage.getItem("search")=== 'null' || localStorage.getItem("search") === null) {
+		fetch('api/v1/entry?sort=taskcreated').then(function(res){
+			res.json().then(function(entry){
+				console.log('entry', entry);
+				var tbody = document.getElementById('data');
+				entry.forEach(function(entry){
+				tbody.insertAdjacentHTML('beforeend', '<tr><td>'  + entry.taskName + '</td>' +
+				'<td><a href = "/tasks/' + entry.id + '", class = "red-text">' + entry.taskDetails + '</td><td>' +
+				entry.taskDate + '</td><td>' + entry.status + '</td><td>' + entry.taskcreated +
+				'</td><td>' + entry.taskupdated + '</td></tr>');
+				});
+				
+				
+			});
+			});
+	
+		
+			fetch('api/v1/entry/count').then(function(res){
+				res.json().then(function(count){
+					console.log('count', count)
+					var banner = document.getElementById('banner-description');
+					banner.innerHTML = 'There are ' + count.count + ' tasks';
+				});
+			});
+	}
+
+	else {
+		fetch('api/v1/entry?query={"taskName":"~(' + localStorage.getItem("search") + ')"}').then(function(res) {
+			res.json().then(function(result){
+				
+				if(result.length === 0){
+					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href ="/tasks/"' +
+						'style ="text-transform: capitalize"' +
+						'white-text">See all Tasks</a>')
+
+					document.getElementById('banner-description').innerHTML = "No entry found" +
+					localStorage.getItem("search");
+
+				}
+				else if (result.length === 1){
+					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href="/tasks/"' +
+						'style = "text-transform: capitalize" class = "waves-effect waves-light btn-flat center black' +
+						'white-text">See all Tasks</a>')
+
+					document.getElementById('banner-description').innerHTML = "Found: " + result.length +
+					"entry related to" + localStorage.getItem("search");
+				}
+
+				else {
+
+					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href = "/tasks/"' +
+						'style = "text-transform: capitalize" class = "waves-effect waves-light btn-flat center black' +
+						'white-text">See all Tasks</a>')
+
+					document.getElementById('banner-description').innerHTML = "Found" + result.length +
+					"entries" + localStorage.getItem("search");
+				}
+
+				var tbody = document.getElementById('data');
+				result.forEach(function(result){
+					tbody.insertAdjacentHTML('beforeend', '<tr><td>'  + result.taskName + '</td>' +
+				'<td><a href = "/tasks/' + result.id + '", class = "red-text">' + result.taskDetails + '</td><td>' +
+				result.taskDate + '</td><td>' + result.status + '</td><td>' + result.taskcreated +
+				'</td><td>' + result.taskupdated + '</td></tr>');
+				});
+				localStorage.setItem("search", null);
+				});
+			});
+
+	}
 }

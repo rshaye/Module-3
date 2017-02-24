@@ -27,6 +27,9 @@ router.use(function(req, res, next) {
       });
   })
 });
+  router.post('/', function(req,res){
+    res.redirect('/tasks')
+  })
 
 //Adding New Entry
 router.get('/new', function(req, res) {
