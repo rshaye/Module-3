@@ -5,7 +5,6 @@ function validateTaskForm() {
 	var getTaskName = document.getElementById('taskName').value;
 	var getTaskDetails = document.getElementById('taskDetails').value;
 	var getTaskDate = document.getElementById('taskDate').value;
-	var getRadioStatus = document.getElementById('status').required = true;
 
 	var errorMessage = "Kindly fill up the following field/s or make sure that you entered a valid input to proceed: \n\n"
 
@@ -30,12 +29,6 @@ function validateTaskForm() {
 		checkCount++;
 	}
 
-	if (getRadioStatus === "") {
-		errorMessage += "Status\n";
-	}
-	else {
-		checkCount++;
-	}
 
 	if(checkCount === 4) {
 		return true;
@@ -50,7 +43,7 @@ function validateTaskForm() {
 }
 
 function confirmDelete() {
-	confirm("This item will be permanently deleted.")
+	alert("This item will be permanently deleted.")
 }
 
 function fieldValidate() {
@@ -134,10 +127,8 @@ if(window.location.pathname === '/tasks') {
 				console.log('entry', entry);
 				var tbody = document.getElementById('data');
 				entry.forEach(function(entry){
-				tbody.insertAdjacentHTML('beforeend', '<tr><td>'  + entry.taskName + '</td>' +
-				'<td><a href = "/tasks/' + entry.id + '", class = "red-text">' + entry.taskDetails + '</td><td>' +
-				entry.taskDate + '</td><td>' + entry.status + '</td><td>' + entry.taskcreated +
-				'</td><td>' + entry.taskupdated + '</td></tr>');
+				tbody.insertAdjacentHTML('beforeend', '<tr><td>'  + entry.taskName + '</td><td>' + entry.status + '</td><td>' +
+				'</td>' + '<td><a href = "/tasks/' + entry._id + '", class = "red-text">' + "See Task" + '</td></tr>');
 				});
 				
 				
@@ -151,6 +142,7 @@ if(window.location.pathname === '/tasks') {
 					var banner = document.getElementById('banner-description');
 					banner.innerHTML = 'There are ' + count.count + ' tasks';
 				});
+			localStorage.setItem("search", null);
 			});
 	}
 
@@ -159,26 +151,26 @@ if(window.location.pathname === '/tasks') {
 			res.json().then(function(result){
 				
 				if(result.length === 0){
-					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href ="/tasks/"' +
+					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href ="/tasks"' +
 						'style ="text-transform: capitalize"' +
 						'white-text">See all Tasks</a>')
 
-					document.getElementById('banner-description').innerHTML = "No entry found" +
+					document.getElementById('banner-description').innerHTML = "No entry found " +
 					localStorage.getItem("search");
 
 				}
 				else if (result.length === 1){
-					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href="/tasks/"' +
-						'style = "text-transform: capitalize" class = "waves-effect waves-light btn-flat center black' +
+					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href="/tasks"' +
+						'style = "text-transform: capitalize" ' +
 						'white-text">See all Tasks</a>')
 
 					document.getElementById('banner-description').innerHTML = "Found: " + result.length +
-					"entry related to" + localStorage.getItem("search");
+					"entry related to " + localStorage.getItem("search");
 				}
 
 				else {
 
-					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href = "/tasks/"' +
+					document.getElementById('allLinks').insertAdjacentHTML('beforeend', '<a href = "/tasks"' +
 						'style = "text-transform: capitalize" class = "waves-effect waves-light btn-flat center black' +
 						'white-text">See all Tasks</a>')
 
@@ -188,10 +180,8 @@ if(window.location.pathname === '/tasks') {
 
 				var tbody = document.getElementById('data');
 				result.forEach(function(result){
-					tbody.insertAdjacentHTML('beforeend', '<tr><td>'  + result.taskName + '</td>' +
-				'<td><a href = "/tasks/' + result.id + '", class = "red-text">' + result.taskDetails + '</td><td>' +
-				result.taskDate + '</td><td>' + result.status + '</td><td>' + result.taskcreated +
-				'</td><td>' + result.taskupdated + '</td></tr>');
+					tbody.insertAdjacentHTML('beforeend', '<tr><td>'  + result.taskName + '</td><td>' + result.status + '</td><td>' +
+				'</td>' + '<td><a href = "/tasks/' + result._id + '", class = "red-text">' + "See Task" + '</td></tr>');
 				});
 				localStorage.setItem("search", null);
 				});
